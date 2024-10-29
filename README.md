@@ -376,3 +376,11 @@ v1Router.post("/signup", validate(zodSignupValidation), signupController)
 
 ## Deployment
 - We can deploy our backend application using `AWS` (paid) or `Render` (free).
+### Render
+- Go to render.com
+- Click on `new` and select `web service`
+- Chose the project to deploy or give the github public link
+- Chose the deside directory
+- Give the build and start command, ex- `npm install && npm run start`
+- Choose the free plan
+- Fill up .env details
