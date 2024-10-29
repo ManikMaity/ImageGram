@@ -384,3 +384,21 @@ v1Router.post("/signup", validate(zodSignupValidation), signupController)
 - Give the build and start command, ex- `npm install && npm run start`
 - Choose the free plan
 - Fill up .env details
+
+## Custom Loadbalancer
+- Loadbalancer is a server that distributes traffic to multiple servers.
+```
+client ----> loadbalancer ----> server1
+
+                     or   -----> server2
+```
+- first install the `ip` npm package, this will help us to get the public ip of the server client.
+```bash
+npm i ip
+```
+- now we can get the ip address of the client using `ip` package.
+```js
+const ip = require("ip");
+const publicIp = ip.address();
+console.log(publicIp);
+```
