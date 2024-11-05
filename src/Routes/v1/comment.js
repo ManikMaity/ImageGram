@@ -3,6 +3,8 @@ import { check, createCommentController, deleteCommentController, getCommentsCon
 import { isAuthenticated } from "../../middleware/isAuthenticated.js";
 import { validate } from "../../validators/zodValidator.js";
 import zodCommentValidation from "../../validators/zodCommentValidator.js";
+import zodComment2Validation from "../../validators/zodComment2validator.js";
+import { createCommentOnPostController } from "../../controllers/comment2.controller.js";
 const commentRouter = express.Router();
 
 /**
@@ -178,6 +180,13 @@ commentRouter.delete("/:commentId", isAuthenticated, deleteCommentController)
  *              description: Unauthorized
  */
 commentRouter.get("/:postId/paginated", isAuthenticated, getPaginatedCommentsController)
+
+
+// create comment in Post by CommentModel 2
+commentRouter.post("/create/post", validate(zodComment2Validation), isAuthenticated, createCommentOnPostController);
+
+// create comment in Comment by CommentModel 2
+commentRouter.post("/create/comment", validate(zodComment2Validation), isAuthenticated, )
 
 
 export default commentRouter;

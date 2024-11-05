@@ -1,4 +1,5 @@
 import { deleteImageFromCloudinary, uploadImageInCloudinary } from "../config/cloudinaryConfig.js";
+import PostModel from "../Model/post.model.js";
 import {
   createPost,
   deletePostById,
@@ -43,6 +44,20 @@ export async function deletePostService(id, userId) {
     }
     catch(err){
         throw new Error(err)
+    }
+}
+
+export async function findPostService(id) {
+    try{
+        const post = await PostModel.findById(id);
+        return post
+    }
+    catch(err){
+        throw {
+            success : false,
+            status : 400,
+            message : "Post not found"
+        };
     }
 }
 

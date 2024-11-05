@@ -1,6 +1,7 @@
 // create a new comment
 
 import CommentModel from "../Model/comment.model.js";
+import CommentModel2 from "../Model/comment2.model.js";
 
 export async function createCommentById(postId, userId, content) {
     try {
@@ -13,6 +14,22 @@ export async function createCommentById(postId, userId, content) {
         return comment
     }
     catch (err) {
+        throw err;
+    }
+}
+
+export async function createCommentForPost(postId, userId, content) {
+    try {
+        const comment = await CommentModel2.create({
+            content,
+            userId,
+            commentableId : postId,
+            onModel : "Post"
+        })
+
+        return comment;
+    }
+    catch(err){
         throw err;
     }
 }

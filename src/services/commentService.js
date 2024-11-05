@@ -1,11 +1,13 @@
 import {
   createCommentById,
+  createCommentForPost,
   deleteCommentById,
   getAllCommentsByPostIdCount,
   getCommentById,
   getCommentsByPostId,
   getPaginatedCommentByPostId,
 } from "../repositories/comment.repo.js";
+import { findPostById } from "../repositories/postRepository.js";
 
 export async function createCommentService(content, postId, userId) {
   try {
@@ -17,6 +19,41 @@ export async function createCommentService(content, postId, userId) {
       };
     }
     const comment = await createCommentById(postId, userId, content);
+    return comment;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function  createCommentForPostService(content, postId, userId, model) {
+ 
+  try {
+
+    if (model.toLowerCase() !== "post") {
+      throw {
+        success : false,
+        status : 400,
+        message : "Invalid model"
+      }
+    }
+
+    const post = await findPostById(postId);
+    if (!post) {
+      throw {
+        success : false,
+        status : 404,
+        message : "Post not found"
+      }
+    }
+    
+    if (content.trim() == "") {
+      throw {
+        status: 400,
+        message: "Comment content is required",
+        success: false,
+      };
+    }
+    const comment = await createCommentForPost(postId, userId, content);
     return comment;
   } catch (err) {
     throw err;
