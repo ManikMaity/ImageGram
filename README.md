@@ -402,3 +402,19 @@ const ip = require("ip");
 const publicIp = ip.address();
 console.log(publicIp);
 ```
+
+## Rate Limiting 
+- Rate limiting is the process of limiting the number of requests that can be made to a server in a given time period.
+- It prevents ddos attacks.
+- npm package - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
+- Have to make a limiter object.
+```js
+const limiter = rateLimit({
+    windowMs: 0.5 * 60 * 1000, 
+	limit: 5, 
+    
+})
+```
+```js
+app.use(limiter);
+```
